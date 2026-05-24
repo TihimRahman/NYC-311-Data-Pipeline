@@ -50,29 +50,43 @@ logger=logging.getLogger(__name__)
 
 #                                               FETCH SINGLE BATCH
 
-
 def fetch_batch(session: requests.Session, offset: int) -> list:
+    
     params = {
         "$limit": BATCH_SIZE,
-        "$offset": 0,
+        "$offset": offset,
         "$order": "created_date DESC"
     }
+    
+    for attempt in range(1, MAX_RETRIES +1):
+        try:
+            logger.info(f"[STARTING] Fetching batch... | offset = {offset}")
+            response = session.get(BASE_URL, params=params, timeout=30)
+            response.raise_for_status()
+            records = response.json()
+            logger.info(f"[SUCCESS] Fetched {len(records)} records from batch in JSON | offset = {offset}")
+            return records
+        
+        except requests.exceptions.Timeout:
+            logger.warning(f"[TIMEOUT] attempt={attempt}/{MAX_RETRIES}")
 
-    logger.info(f"Fetching batch | offset {offset}")
+        except requests.exceptions.ConnectionError:
+            logger.warning(f"[CONNECTION FAILED] attempt={attempt}/{MAX_RETRIES} | offset={offset}")
 
-    response = session.get(BASE_URL, params=params, timeout=30)
-    response.raise_for_status()
-    records = response.json()
-    logger.info(f"Fetched {len(records)} records | offset {offset}")
+        except requests.exceptions.HTTPError as e:
+            logger.error(f"[HTTP ERROR] {response.status_code} | offset={offset} | detail={e}")
+            raise    
 
-    return records
+        except json.JSONDecodeError:
+            logger.error(f"[INVALID JSON] offset={offset} | raw={response.text[:200]}")
+            raise 
 
+        if attempt < MAX_RETRIES:
+            logger.info(f"[RETRYING] waiting {RETRY_DELAY}s...")
+            time.sleep(RETRY_DELAY)
 
-
-
-
-
-
+    logger.error(f"[FAILED] All {MAX_RETRIES} attempts failed | offset = {offset}")
+    raise Exception (f"Failed after {MAX_RETRIES} retries | offset = {offset}")
 
 
 
@@ -122,9 +136,7 @@ def run_extraction():
 if __name__ == "__main__":
     
     with requests.Session() as session:
-        records = fetch_batch(session, offset=0)
-        print(records[0])
-
-
-
+        records=fetch_batch(session, offset=0)
+        res = json.dumps(records[1], indent=5)
+        print(res)
 
