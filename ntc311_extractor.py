@@ -1,4 +1,4 @@
-#IMPORTS
+#                                               IMPORTS
 import logging
 import os
 from datetime import datetime
@@ -7,8 +7,8 @@ import requests
 import json
 import time
 
-#                                   CONFIG
 
+#                                               CONFIG
 
 BASE_URL    = "https://data.cityofnewyork.us/resource/erm2-nwe9.json"
 BATCH_SIZE  = 1000
@@ -23,8 +23,7 @@ S3_PREFIX   = "source"
 
 
 
-#                                           LOGGING SETUP
-
+#                                               LOGGING SETUP
 
 LOG_DIR = "logs"
 os.makedirs(LOG_DIR, exist_ok=True)
@@ -39,8 +38,6 @@ logging.basicConfig(
     ]
 )
 logger=logging.getLogger(__name__)
-
-
 
 
 
@@ -90,8 +87,8 @@ def fetch_batch(session: requests.Session, offset: int) -> list:
 
 
 
-#                                                  DATA QUALITY
 
+#                                                  DATA QUALITY
 
 def check_data_quality(records:list, offset:int) -> dict:
     
@@ -190,9 +187,9 @@ def save_to_s3(records:list, offset:int)->str:
     
 
 
-#                                                  ORCHESTRATOR
 
 
+#                                                ORCHESTRATOR
 
 def run_extraction():
 
@@ -212,8 +209,6 @@ def run_extraction():
     logger.info(f"S3 bucket      : {S3_BUCKET}")
 
     logger.info("=" * 60) #------------------------
-
-
 
 
     # ── STEP 2: main loop ─────────────────────────────────
@@ -251,12 +246,8 @@ def run_extraction():
                 offset += BATCH_SIZE
                 continue
 
-
-
-
     # ── STEP 3: final summary ─────────────────────────────
 
-    
     duration = datetime.now() - start_time
 
     logger.info("=" * 60)
@@ -274,12 +265,15 @@ def run_extraction():
         "issues":        total_issues
     }
 
+
+
+
+
 #                                                   ENTRY POINT
 
-
-
 if __name__ == "__main__":
+    try:
+        run_extraction() 
     
-    run_extraction() 
-
-
+    except Exception as e:
+        logger.critical(f"[PIPELINE CRASHED] {e}")
