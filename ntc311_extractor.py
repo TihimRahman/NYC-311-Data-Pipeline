@@ -23,8 +23,6 @@ S3_PREFIX   = "raw/nyc311"
 
 
 
-
-
 #                                           LOGGING SETUP
 
 
@@ -95,10 +93,64 @@ def fetch_batch(session: requests.Session, offset: int) -> list:
 #                                                  DATA QUALITY
 
 
-def check_data_quality():
-    pass
+def check_data_quality(records:list, offset:int) -> dict:
+    
+    # ── STEP 1: define issues tracker ────────────────────
+    
+    issues = {
+        "missing_unique_key":     0,
+        "missing_created_date":   0,
+        "missing_complaint_type": 0,
+        "missing_borough":        0,
+        "empty_strings":          0,
+        "duplicate_keys":         set()
+    }
+
+    seen_keys = set()
+
+    # ── STEP 2: loop through records ─────────────────────
+
+    for record in records:
+        unique_key=record.get("unique_key")
+
+        if not unique_key:
+            issues["missing_unique_key"] +=1
+        
+        else:
+            if unique_key in seen_keys:
+                issues["duplicate_keys"].add(unique_key)
+            seen_keys.add(unique_key)
+
+        if not record.get("created_date"):
+            issues["missing_created_date"] += 1
+
+        if not record.get("complaint_type"):
+            issues["missing_complaint_type"] += 1
+        
+        if not record.get("borough"):
+            issues["missing_borough"] += 1
+
+        empty = sum(1 for v in record.values() if v == "")
+        if empty > 0:
+            issues["empty_strings"] += empty
 
 
+    # ── STEP 3: log the results ──────────────────────────
+
+    issues["duplicate_keys"] = len(issues["duplicate_keys"])
+    logger.info(
+        f"[QUALITY CHECK] offset={offset} | "
+        f"missing_key={issues['missing_unique_key']} | "
+        f"missing_date={issues['missing_created_date']} | "
+        f"missing_borough={issues['missing_borough']} | "
+        f"duplicates={issues['duplicate_keys']} | "
+        f"empty_strings={issues['empty_strings']}"
+    )
+
+    if issues["duplicate_keys"] > 0:
+        logger.warning(f"[DUPLICATES DETECTED] count={issues['duplicate_keys']} | offset={offset}")
+
+    return issues
 
 
 
@@ -136,7 +188,8 @@ def run_extraction():
 if __name__ == "__main__":
     
     with requests.Session() as session:
-        records=fetch_batch(session, offset=0)
-        res = json.dumps(records[1], indent=5)
-        print(res)
+        records = fetch_batch(session, offset=0)
+        issues = check_data_quality(records, offset=0)
+        print(issues)
+
 
