@@ -1,0 +1,13 @@
+nyc311_dbt:
+  outputs:
+    dev:
+      account: EWFENRD-SL16915
+      database: NYC311
+      password: Mamaliza2001!!
+      role: ACCOUNTADMIN
+      schema: silver
+      threads: 5
+      type: snowflake
+      user: tihim
+      warehouse: NYC311_WH
+  target: dev
