@@ -1,0 +1,26 @@
+2026-05-25 01:35:27,389 - INFO - ============================================================
+2026-05-25 01:35:27,389 - INFO - NYC 311 Extraction Started
+2026-05-25 01:35:27,389 - INFO - Target records : 10000
+2026-05-25 01:35:27,389 - INFO - Batch size     : 1000
+2026-05-25 01:35:27,389 - INFO - S3 bucket      : ntc311-pipeline
+2026-05-25 01:35:27,390 - INFO - ============================================================
+2026-05-25 01:35:27,390 - INFO - [STARTING] Fetching batch... | offset = 0
+2026-05-25 01:35:28,563 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 0
+2026-05-25 01:35:28,566 - INFO - [QUALITY CHECK] offset=0 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-25 01:35:28,621 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2026-05-25 01:35:29,243 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-25/batch0_2026-05-25_01:35:28.json
+2026-05-25 01:35:29,244 - INFO - [PROGRESS] total_records=1000/10000
+2026-05-25 01:35:29,745 - INFO - [STARTING] Fetching batch... | offset = 1000
+2026-05-25 01:35:30,334 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 1000
+2026-05-25 01:35:30,336 - INFO - [QUALITY CHECK] offset=1000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-25 01:35:30,862 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-25/batch1000_2026-05-25_01:35:30.json
+2026-05-25 01:35:30,864 - INFO - [PROGRESS] total_records=2000/10000
+2026-05-25 01:35:31,365 - INFO - [STARTING] Fetching batch... | offset = 2000
+2026-05-25 01:35:31,802 - WARNING - [INTERRUPTED] Pipeline stopped by user
+2026-05-25 01:35:31,803 - INFO - ============================================================
+2026-05-25 01:35:31,805 - INFO - Extraction Complete
+2026-05-25 01:35:31,805 - INFO - Total records  : 2000
+2026-05-25 01:35:31,805 - INFO - Total files    : 2
+2026-05-25 01:35:31,805 - INFO - Duration       : 0:00:04.414264
+2026-05-25 01:35:31,806 - INFO - Quality issues : {'missing_unique_key': 0, 'missing_created_date': 0, 'missing_complaint_type': 0, 'missing_borough': 0, 'empty_strings': 0, 'duplicate_keys': 0}
+2026-05-25 01:35:31,806 - INFO - ============================================================

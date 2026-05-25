@@ -1,3 +1,0 @@
-2026-05-25 00:18:01,169 - INFO - [STARTING] Fetching batch... | offset = 0
-2026-05-25 00:18:01,251 - WARNING - [CONNECTION FAILED] attempt=1/3 | offset=0
-2026-05-25 00:18:01,252 - INFO - [RETRYING] waiting 5s...

@@ -2,7 +2,7 @@
 import logging
 import os
 from datetime import datetime
-
+import boto3
 import requests
 import json
 import time
@@ -17,8 +17,8 @@ MAX_RETRIES = 3
 RETRY_DELAY = 5
 
 #S3
-S3_BUCKET   = "your-bucket-name"
-S3_PREFIX   = "raw/nyc311"
+S3_BUCKET   = "ntc311-pipeline"
+S3_PREFIX   = "source"
 
 
 
@@ -156,16 +156,38 @@ def check_data_quality(records:list, offset:int) -> dict:
 
 
 
-
 #                                                 SAVE BATCH TO S3
 
-def save_to_s3():
-    pass
+def save_to_s3(records:list, offset:int)->str:
+
+    # ── STEP 1: build the s3 key (file path) ─────────────
+   
+    date_partition = datetime.now().strftime("%Y-%m-%d")
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+    s3_key = f"{S3_PREFIX}/{date_partition}/batch{offset}_{timestamp}.json"
 
 
+    # ── STEP 2: convert records to json string ────────────
 
+    json_data = json.dumps(records, indent=3)
 
+    # ── STEP 3: upload to s3 ─────────────────────────────
+    
+    try:
+        s3_client = boto3.client("s3")
+        s3_client.put_object(
+            Bucket=S3_BUCKET,
+            Key=s3_key,
+            Body=json_data,
+            ContentType="application/json"
+        )
+        logger.info(f"[S3 UPLOAD SUCCESS] s3://{S3_BUCKET}/{s3_key}")
+        return s3_key
 
+    except Exception as e:
+        logger.error(f"[S3 UPLOAD FAILED] {e}")
+        raise
+    
 
 
 #                                                  ORCHESTRATOR
@@ -173,13 +195,84 @@ def save_to_s3():
 
 
 def run_extraction():
-    pass
+
+    # ── STEP 1: initialise tracking variables ─────────────
+    
+    start_time    = datetime.now()
+    total_records = 0
+    total_files   = []
+    total_issues  = {}
+    offset        = 0
+
+    logger.info("=" * 60) #------------------------
+
+    logger.info("NYC 311 Extraction Started")
+    logger.info(f"Target records : {MAX_RECORDS}")
+    logger.info(f"Batch size     : {BATCH_SIZE}")
+    logger.info(f"S3 bucket      : {S3_BUCKET}")
+
+    logger.info("=" * 60) #------------------------
 
 
 
 
+    # ── STEP 2: main loop ─────────────────────────────────
+    
+    with requests.Session() as session:
+        session.headers.update({"Accept": "application/json"})
+
+        while total_records < MAX_RECORDS:
+            try:
+                records = fetch_batch(session, offset)
+
+                if not records:
+                    logger.info("[DONE] No more records available")
+                    break
+
+                issues = check_data_quality(records, offset)
+                s3_key = save_to_s3(records, offset)
+
+                for key, val in issues.items():
+                    total_issues[key] = total_issues.get(key, 0) + val
+
+                total_files.append(s3_key)
+                total_records += len(records)
+                offset        += BATCH_SIZE
+
+                logger.info(f"[PROGRESS] total_records={total_records}/{MAX_RECORDS}")
+                time.sleep(0.5)
+
+            except KeyboardInterrupt:
+                logger.warning("[INTERRUPTED] Pipeline stopped by user")
+                break
+
+            except Exception as e:
+                logger.error(f"[ERROR] offset={offset} | error={e}")
+                offset += BATCH_SIZE
+                continue
 
 
+
+
+    # ── STEP 3: final summary ─────────────────────────────
+
+    
+    duration = datetime.now() - start_time
+
+    logger.info("=" * 60)
+    logger.info("Extraction Complete")
+    logger.info(f"Total records  : {total_records}")
+    logger.info(f"Total files    : {len(total_files)}")
+    logger.info(f"Duration       : {duration}")
+    logger.info(f"Quality issues : {total_issues}")
+    logger.info("=" * 60)
+
+    return {
+        "total_records": total_records,
+        "files_saved":   total_files,
+        "duration":      str(duration),
+        "issues":        total_issues
+    }
 
 #                                                   ENTRY POINT
 
@@ -187,9 +280,6 @@ def run_extraction():
 
 if __name__ == "__main__":
     
-    with requests.Session() as session:
-        records = fetch_batch(session, offset=0)
-        issues = check_data_quality(records, offset=0)
-        print(issues)
+    run_extraction() 
 
 

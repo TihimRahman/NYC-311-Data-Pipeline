@@ -1,0 +1,5 @@
+2026-05-25 01:27:00,549 - INFO - [STARTING] Fetching batch... | offset = 0
+2026-05-25 01:27:01,689 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 0
+2026-05-25 01:27:01,691 - INFO - [QUALITY CHECK] offset=0 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-25 01:27:01,747 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2026-05-25 01:27:02,444 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-25/batch_0_2026-05-25_01:27:01.json

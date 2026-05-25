@@ -1,0 +1,28 @@
+2026-05-25 01:37:45,277 - INFO - ============================================================
+2026-05-25 01:37:45,277 - INFO - NYC 311 Extraction Started
+2026-05-25 01:37:45,278 - INFO - Target records : 10000
+2026-05-25 01:37:45,278 - INFO - Batch size     : 1000
+2026-05-25 01:37:45,278 - INFO - S3 bucket      : ntc311-pipeline
+2026-05-25 01:37:45,278 - INFO - ============================================================
+2026-05-25 01:37:45,278 - INFO - [STARTING] Fetching batch... | offset = 0
+2026-05-25 01:37:46,196 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 0
+2026-05-25 01:37:46,197 - INFO - [QUALITY CHECK] offset=0 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-25 01:37:46,294 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2026-05-25 01:37:46,884 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-25/batch0_2026-05-25_01:37:46.json
+2026-05-25 01:37:46,886 - INFO - [PROGRESS] total_records=1000/10000
+2026-05-25 01:37:47,387 - INFO - [STARTING] Fetching batch... | offset = 1000
+2026-05-25 01:37:48,073 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 1000
+2026-05-25 01:37:48,075 - INFO - [QUALITY CHECK] offset=1000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-25 01:37:48,569 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-25/batch1000_2026-05-25_01:37:48.json
+2026-05-25 01:37:48,571 - INFO - [PROGRESS] total_records=2000/10000
+2026-05-25 01:37:49,072 - INFO - [STARTING] Fetching batch... | offset = 2000
+2026-05-25 01:37:49,547 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 2000
+2026-05-25 01:37:49,549 - INFO - [QUALITY CHECK] offset=2000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-25 01:37:49,941 - WARNING - [INTERRUPTED] Pipeline stopped by user
+2026-05-25 01:37:49,943 - INFO - ============================================================
+2026-05-25 01:37:49,943 - INFO - Extraction Complete
+2026-05-25 01:37:49,944 - INFO - Total records  : 2000
+2026-05-25 01:37:49,944 - INFO - Total files    : 2
+2026-05-25 01:37:49,944 - INFO - Duration       : 0:00:04.665793
+2026-05-25 01:37:49,944 - INFO - Quality issues : {'missing_unique_key': 0, 'missing_created_date': 0, 'missing_complaint_type': 0, 'missing_borough': 0, 'empty_strings': 0, 'duplicate_keys': 0}
+2026-05-25 01:37:49,944 - INFO - ============================================================

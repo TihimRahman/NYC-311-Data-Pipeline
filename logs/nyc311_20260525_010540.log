@@ -1,3 +1,0 @@
-2026-05-25 01:05:40,042 - INFO - [STARTING] Fetching batch... | offset = 0
-2026-05-25 01:05:41,843 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 0
-2026-05-25 01:05:41,845 - INFO - [QUALITY CHECK] offset=0 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
