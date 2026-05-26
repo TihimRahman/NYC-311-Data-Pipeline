@@ -1,7 +1,24 @@
+
+{{
+    config(
+        materialized='incremental',
+        unique_key='complaint_id',
+        incremental_strategy='merge',
+        on_schema_change='append_new_columns'
+    )
+}}
+
+
 with enriched as (
 
     select*
     from {{ ref('int_complaints__enriched') }}
+
+
+
+    {% if is_incremental() %}
+    where extracted_at > (select coalesce(max(extracted_at), '1900-01-01'::timestamp_ntz) from {{ this }})
+    {% endif %}
 
 ),
 
