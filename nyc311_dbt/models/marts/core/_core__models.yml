@@ -1,0 +1,141 @@
+version: 2
+
+models:
+  - name: dim_borough
+    description: >
+      "Conformed borough dimension. One row per NYC borough plus an
+      unknown sentinel row for facts with missing borough data.
+      Joins observed boroughs from the silver layer to static metadata
+      in borough_lookup. Generates a deterministic surrogate key from
+      the natural key (borough_name).
+      Grain: one row per borough_name (6 rows total)."
+    
+    config:
+      contract:
+        enforced: true
+    
+    
+    columns:
+      - name: borough_sk
+        description: "Surrogate key. MD5 hash of borough_name. Primary key, FK target for fct_complaints."
+        data_type: varchar
+        contraints:
+          - type: not_null
+          - type: primary_key
+        tests:
+          - not_null
+          - unique
+
+
+      - name: borough_name
+        description: "Natural key. Title-cased borough name."
+        data_type: varchar
+        constraints:
+          - type: not_null
+        tests:
+          - unique
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island', 'Unknown']
+
+
+      - name: borough_code
+        description: "Two-letter borough code (MN, BK, QN, BX, SI, UN)."
+        data_type: varchar
+
+      - name: county_name
+        description: "Official US county name. May differ from borough name (e.g. Brooklyn = Kings)."
+        data_type: varchar
+
+      - name: population_2020
+        description: "Borough population from the 2020 US Census. NULL for Unknown."
+        data_type: number(10,0)
+
+      - name: area_sq_mi
+        description: "Borough land area in square miles. NULL for Unknown."
+        data_type: number(10,0)
+
+      - name: population_density_per_sq_mi
+        description: "Derived: population_2020 / area_sq_mi, rounded."
+        data_type: number(10,0)
+
+      - name: is_missing_metadata
+        description: "True if this borough appears in fact data but is absent from borough_lookup.csv."
+        data_type: boolean
+        constraints:
+          - type: not_null
+
+      - name: dim_loaded_at
+        description: "Timestamp when this dimension row was last built."
+        data_type: timestamp_ntz
+        constraints:
+          - type: not_null
+
+
+
+
+  - name: dim_complaint_type
+    description: >
+      "Conformed complaint-type dimension. One row per distinct complaint_type
+      observed in data, enriched with category metadata from
+      complaint_type_lookup. Unmatched types default to category='Other'
+      and are flagged via is_missing_metadata. Includes 'Unknown' sentinel
+      for NULL complaint_type.
+      Grain: one row per complaint_type (open-ended)."
+
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: complaint_type_sk
+        description: "Surrogate key. MD5 hash of complaint_type. PK and FK target for fct_complaints."
+        data_type: varchar
+        constraints:
+          - type: not_null
+          - type: primary_key
+        tests:
+          - unique
+          - not_null
+
+      - name: complaint_type
+        description: "Natural key. Title-cased complaint type from source."
+        data_type: varchar
+        constraints:
+          - type: not_null
+        tests:
+          - unique
+          - not_null
+
+      - name: category
+        description: "Broad analytical category. Defaults to 'Other' for unmatched types."
+        data_type: varchar
+        constraints:
+          - type: not_null
+        tests:
+          - not_null
+
+      - name: is_quality_of_life
+        description: "Boolean: true if complaint type relates to quality of life. Defaults to false."
+        data_type: boolean
+        constraints:
+          - type: not_null
+
+      - name: is_emergency
+        description: "Boolean: true if complaint type can indicate an emergency. Defaults to false."
+        data_type: boolean
+        constraints:
+          - type: not_null
+
+      - name: is_missing_metadata
+        description: "True if complaint type appears in data but not in complaint_type_lookup.csv. Signal to expand the seed."
+        data_type: boolean
+        constraints:
+          - type: not_null
+
+      - name: dim_loaded_at
+        description: "Timestamp when this dimension row was last built."
+        data_type: timestamp_ntz
+        constraints:
+          - type: not_null

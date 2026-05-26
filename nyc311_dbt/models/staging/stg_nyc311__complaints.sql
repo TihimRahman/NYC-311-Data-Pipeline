@@ -29,7 +29,7 @@ cleaned as(
     
         case 
             when upper(trim(borough)) in ('UNSPECIFIED', '', 'NA', 'N/A') then null
-            else upper(trim(borough))
+            else initcap(trim(borough))
         end as borough,
 
         nullif(trim(community_board), '')                   as community_board,

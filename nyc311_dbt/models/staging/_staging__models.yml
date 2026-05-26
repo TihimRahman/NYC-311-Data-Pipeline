@@ -84,7 +84,7 @@ models:
         description: "NYC borough, title-cased. NULL for unspecified/invalid values."
         tests:
           - accepted_values:
-              values: ['MANHATTAN', 'BROOKLYN', 'QUEENS', 'BRONX', 'STATEN ISLAND']
+              values: ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island']
               config:
                 where: "borough is not null"
 
