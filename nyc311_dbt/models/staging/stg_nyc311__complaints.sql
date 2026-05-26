@@ -66,7 +66,7 @@ deduplicated as (
 filtered as (
 
     select
-    
+
         complaint_id,
         created_at,
         closed_at,
