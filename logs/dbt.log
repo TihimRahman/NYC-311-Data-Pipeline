@@ -1,29 +1,20 @@
-[0m02:38:05.931692 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C9E04BE090>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C9E0B0C9B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C9E078B020>]}
+[0m19:54:03.168255 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002713F9457F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002714335BE60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000271433597F0>]}
 
 
-============================== 02:38:05.936154 | 4f7a2e89-df36-4fcf-88c5-48c1083bdb26 ==============================
-[0m02:38:05.936154 [info ] [MainThread]: Running with dbt=1.10.9
-[0m02:38:05.936154 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\Tihim\\.dbt', 'invocation_command': 'dbt init nyc311_dbt', 'indirect_selection': 'eager', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs'}
-[0m02:38:05.952623 [debug] [MainThread]: Starter project path: C:\Users\Tihim\AppData\Local\Programs\Python\Python312\Lib\site-packages\dbt\include\starter_project
-[0m02:38:05.973189 [info ] [MainThread]: 
-Your new dbt project "nyc311_dbt" was created!
-
-For more information on how to configure the profiles.yml file,
-please consult the dbt documentation here:
-
-  https://docs.getdbt.com/docs/configure-your-profile
-
-One more thing:
-
-Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
-
-  https://community.getdbt.com/
-
-Happy modeling!
-
-[0m02:38:05.973189 [info ] [MainThread]: Setting up your profile.
-[0m02:39:46.381439 [info ] [MainThread]: Profile nyc311_dbt written to C:\Users\Tihim\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
-[0m02:39:46.383442 [debug] [MainThread]: Command `dbt init` succeeded at 02:39:46.383442 after 100.54 seconds
-[0m02:39:46.383442 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C9E07BD370>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C9FAA73B00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001C9F8A7BA10>]}
-[0m02:39:46.383442 [debug] [MainThread]: Flushing usage events
-[0m02:39:47.049206 [debug] [MainThread]: An error was encountered while trying to flush usage events
+============================== 19:54:03.172255 | 2d9d7470-ce53-49c5-8657-03c413e64330 ==============================
+[0m19:54:03.172255 [info ] [MainThread]: Running with dbt=1.10.9
+[0m19:54:03.173255 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\Tihim\\.dbt', 'indirect_selection': 'eager', 'invocation_command': 'dbt debug', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m19:54:03.188025 [info ] [MainThread]: dbt version: 1.10.9
+[0m19:54:03.189025 [info ] [MainThread]: python version: 3.12.10
+[0m19:54:03.189025 [info ] [MainThread]: python path: C:\Users\Tihim\AppData\Local\Programs\Python\Python312\python.exe
+[0m19:54:03.190025 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m19:54:03.945813 [info ] [MainThread]: Using profiles dir at C:\Users\Tihim\.dbt
+[0m19:54:03.946814 [info ] [MainThread]: Using profiles.yml file at C:\Users\Tihim\.dbt\profiles.yml
+[0m19:54:03.946814 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\Tihim\personal_pipeline\dbt_project.yml
+[0m19:54:03.946814 [error] [MainThread]: Encountered an error:
+Internal Error
+  Profile should not be None if loading profile completed
+[0m19:54:03.947813 [debug] [MainThread]: Command `dbt debug` failed at 19:54:03.947813 after 0.88 seconds
+[0m19:54:03.947813 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027142E7D880>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002715DA1D580>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027143AA6840>]}
+[0m19:54:03.947813 [debug] [MainThread]: Flushing usage events
+[0m19:54:04.658754 [debug] [MainThread]: An error was encountered while trying to flush usage events

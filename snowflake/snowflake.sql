@@ -1,5 +1,5 @@
+-- ── DATABASE & SCHEMAS ───────────────────────────────────
 CREATE DATABASE IF NOT EXISTS nyc311;
-
 CREATE SCHEMA IF NOT EXISTS nyc311.bronze;
 CREATE SCHEMA IF NOT EXISTS nyc311.silver;
 CREATE SCHEMA IF NOT EXISTS nyc311.gold;
@@ -19,36 +19,38 @@ CREATE STORAGE INTEGRATION IF NOT EXISTS s3_nyc311_integration
     STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::425750453753:role/pipeline4-snowflake-role';
 
 -- ── EXTERNAL STAGE ───────────────────────────────────────
+CREATE OR REPLACE STAGE nyc311.bronze.s3_stage
+    URL = 's3://ntc311-pipeline/source/'
+    STORAGE_INTEGRATION = s3_nyc311_integration;
+
+-- ── BRONZE RAW TABLE ─────────────────────────────────────
+-- dbt will manage loads, but keep this table for the raw VARIANT
+CREATE TABLE IF NOT EXISTS nyc311.bronze.complaints_raw (
+    raw_data            VARIANT         NOT NULL,
+    filename            VARCHAR         NOT NULL,
+    _dbt_extracted_at   TIMESTAMP_NTZ   DEFAULT CURRENT_TIMESTAMP(),
+    _dbt_source_relation VARCHAR         DEFAULT 'S3'
+)
+COMMENT = 'Raw JSON from NYC 311 API via S3. Loaded by dbt.';
+
+
+
+LIST @nyc311.bronze.s3_stage;
 USE DATABASE nyc311;
 USE SCHEMA bronze;
 
-CREATE OR REPLACE STAGE nyc311_s3_stage
-    URL = 's3://ntc311-pipeline/source/'
-    STORAGE_INTEGRATION = s3_nyc311_integration
-    FILE_FORMAT = (TYPE = 'JSON');
 
--- ── BRONZE TABLE ─────────────────────────────────────────
-CREATE TABLE IF NOT EXISTS nyc311.bronze.complaints_json (
-    raw_data    VARIANT,
-    loaded_at   TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP(),
-    filename    VARCHAR
-);
 
--- ── LOAD FROM S3 ─────────────────────────────────────────
-COPY INTO nyc311.bronze.complaints_json (raw_data, filename)
+COPY INTO complaints_raw (raw_data, filename)
 FROM (
     SELECT 
         $1,
         METADATA$FILENAME
-    FROM @nyc311_s3_stage
+    FROM @s3_stage  
 )
 FILE_FORMAT = (TYPE = 'JSON', STRIP_OUTER_ARRAY = TRUE);
 
--- ── VERIFY ───────────────────────────────────────────────
-SELECT 
-    raw_data:unique_key::STRING     as unique_key,
-    raw_data:borough::STRING        as borough,
-    raw_data:complaint_type::STRING as complaint_type,
-    raw_data:created_date::TIMESTAMP as created_date
-FROM nyc311.bronze.complaints_json
-LIMIT 5;
+
+SHOW STAGES IN SCHEMA nyc311.bronze;
+
+select*from complaints_raw

@@ -1,0 +1,2 @@
+2026-05-25 14:10:29,028 - INFO - [STARTING] Fetching batch... | offset = 1
+2026-05-25 14:10:30,715 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 1

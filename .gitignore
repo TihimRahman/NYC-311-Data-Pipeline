@@ -9,3 +9,15 @@ wheels/
 # Virtual environments
 .venv
 .env
+# Local Docker environment
+
+
+# Airflow runtime data
+airflow/logs/
+airflow/plugins/__pycache__/
+airflow/dags/__pycache__/
+
+# dbt artifacts
+nyc311_dbt/target/
+nyc311_dbt/dbt_packages/
+nyc311_dbt/logs/
