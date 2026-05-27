@@ -14,6 +14,7 @@ wheels/
 
 # Airflow runtime data
 airflow/logs/
+airflow/logs/config
 airflow/plugins/__pycache__/
 airflow/dags/__pycache__/
 
@@ -21,3 +22,10 @@ airflow/dags/__pycache__/
 nyc311_dbt/target/
 nyc311_dbt/dbt_packages/
 nyc311_dbt/logs/
+
+
+ingestion/.vscode
+ingestion/uv.lock
+ingestion/extraction_summary.json
+ingestion/README.md
+ingestion/logs
