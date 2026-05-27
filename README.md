@@ -12,9 +12,9 @@
 
 ## 📖 Overview
 
-This project ingests **every NYC 311 service request** — noise complaints, potholes, heat outages, rodent sightings, illegal parking, and 150+ other complaint types — from the city's public API into a fully-modeled Snowflake warehouse. It implements modern data engineering practices end-to-end: medallion architecture, dimensional modeling, incremental builds, SCD Type 2 history tracking, event-driven orchestration, and data contracts.
+This project ingests **every NYC 311 service request** — noise complaints, potholes, heat outages, rodent sightings, illegal parking, and 150+ other complaint types — from the city's public API into a fully-modeled Snowflake warehouse. It implements modern data engineering practices end-to-end: medallion architecture, dimensional modeling, incremental builds, SCD Type 2 history tracking, event-driven orchestration (assets), and data contracts.
 
-**One click, full pipeline.** Trigger the extraction DAG in Airflow and the entire chain runs unattended: API → S3 → Snowflake bronze → silver → gold star schema → reporting marts.
+**One click, full pipeline.** Trigger the extraction DAG in Airflow (set at automatated triggers at 5am UTC as default) and the entire chain runs unattended: API → S3 → Snowflake bronze → silver → gold star schema → reporting marts.
 
 ---
 
