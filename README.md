@@ -51,7 +51,8 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 - **Infrastructure as code** — `docker-compose.yml`, `Dockerfile`, and DAG files fully describe the runtime environment
 
 ---
-###Full Dbt Lineage###
+##Full dbt Lineage
+
 ![Alt text](images/full_lineage.png)
 
 ---
