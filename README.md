@@ -19,11 +19,7 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 ---
 
 ## 🏗️ Architecture
-┌──────────────────────┐     ┌─────────────┐     ┌──────────────────┐
-│  NYC 311 Socrata API │ ──▶ │  AWS S3     │ ──▶ │ Snowflake BRONZE │
-│  (Source)            │     │  (Landing)  │     │ (Raw JSON)       │
-└──────────────────────┘     └─────────────┘     └────────┬─────────┘
-│
+
 ┌───────────▼────────────┐
 │   Snowflake SILVER     │
 │ ┌────────────────────┐ │
