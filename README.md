@@ -9,7 +9,6 @@
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 
 ---
-
 ## 📖 Overview
 
 This project ingests **every NYC 311 service request** — noise complaints, potholes, heat outages, rodent sightings, illegal parking, and 150+ other complaint types — from the city's public API into a fully-modeled Snowflake warehouse. It implements modern data engineering practices end-to-end: medallion architecture, dimensional modeling, incremental builds, SCD Type 2 history tracking, event-driven orchestration **(assets)** and data contracts.
@@ -50,6 +49,9 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 - **Secrets management** — credentials sourced from `.env`, injected into containers as environment variables, never committed
 - **Version-controlled reference data** — seed CSVs in git, editable via PRs
 - **Infrastructure as code** — `docker-compose.yml`, `Dockerfile`, and DAG files fully describe the runtime environment
+
+##FULL DBT LINEAGE##
+![Alt text](images/full_lineage.png)
 
 ---
 
