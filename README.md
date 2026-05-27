@@ -311,3 +311,4 @@ MIT
 Built with lots of debugging as a demonstration of modern ELT practices: medallion architecture, dimensional modeling, incremental builds, SCD Type 2, event-driven orchestration, and full containerization.
 
 If you're hiring data engineers or want to chat about the project, find me on [LinkedIn](https://linkedin.com/in/tihimrahmanahmed) or [GitHub](https://github.com/TihimRahman).
+Lots of love, happy coding!
