@@ -44,21 +44,21 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 │ │   summary          │ │  ◀── Reporting mart
 │ └────────────────────┘ │
 └────────────────────────┘
-       ┌─────────────────────────────────────────────────┐
-       │              Airflow (Asset-Driven)             │
-       │                                                 │
-       │   nyc311_extraction_pipeline                    │
-       │           │                                     │
-       │           ▼                                     │
-       │   📦 bronze_complaints (Asset)                  │
-       │           │                                     │
-       │           ▼                                     │
-       │   nyc311_dbt_pipeline                           │
-       │     ├── PRE-FLIGHT (deps, source freshness)     │
-       │     ├── BUILD SILVER (staging, intermediate)    │
-       │     ├── BUILD GOLD (seeds, dims, facts, report) │
-       │     └── HISTORY (SCD Type 2 snapshots)          │
-       └─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│              Airflow (Asset-Driven)             │
+│                                                 │
+│   nyc311_extraction_pipeline                    │
+│           │                                     │
+│           ▼                                     │
+│   📦 bronze_complaints (Asset)                  |
+│           │                                     │
+│           ▼                                     │
+│   nyc311_dbt_pipeline                           │
+│     ├── PRE-FLIGHT (deps, source freshness)     │
+│     ├── BUILD SILVER (staging, intermediate)    │
+│     ├── BUILD GOLD (seeds, dims, facts, report) │
+│     └── HISTORY (SCD Type 2 snapshots)          │
+└─────────────────────────────────────────────────┘
 
 ---
 
