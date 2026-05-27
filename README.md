@@ -18,46 +18,6 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 
 ---
 
-## 🏗️ Architecture
-
-┌───────────▼────────────┐
-│   Snowflake SILVER     │
-│ ┌────────────────────┐ │
-│ │ stg_nyc311__base   │ │  ◀── Flatten JSON
-│ │ stg_nyc311__compl. │ │  ◀── Dedupe, normalize
-│ │ int_complaints__   │ │  ◀── Business logic
-│ │   enriched         │ │
-│ └────────────────────┘ │
-└───────────┬────────────┘
-│
-┌───────────▼────────────┐
-│   Snowflake GOLD       │
-│ ┌────────────────────┐ │
-│ │ dim_borough        │ │
-│ │ dim_complaint_type │ │  ◀── Star schema
-│ │ fct_complaints     │ │      (incremental)
-│ │ dashboard_daily_   │ │
-│ │   summary          │ │  ◀── Reporting mart
-│ └────────────────────┘ │
-└────────────────────────┘
-┌─────────────────────────────────────────────────┐
-│              Airflow (Asset-Driven)             │
-│                                                 │
-│   nyc311_extraction_pipeline                    │
-│           │                                     │
-│           ▼                                     │
-│   📦 bronze_complaints (Asset)                  |
-│           │                                     │
-│           ▼                                     │
-│   nyc311_dbt_pipeline                           │
-│     ├── PRE-FLIGHT (deps, source freshness)     │
-│     ├── BUILD SILVER (staging, intermediate)    │
-│     ├── BUILD GOLD (seeds, dims, facts, report) │
-│     └── HISTORY (SCD Type 2 snapshots)          │
-└─────────────────────────────────────────────────┘
-
----
-
 ## ✨ Features
 
 ### 📊 Data Modeling
@@ -109,39 +69,3 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 
 ---
 
-## 📁 Project Structure
-personal_pipeline/
-├── airflow/                          # Airflow orchestration
-│   ├── dags/
-│   │   ├── assets.py                # Shared Asset definitions
-│   │   ├── nyc311_extraction_dag.py  # Pulls from API → S3
-│   │   └── nyc311_dbt_dag.py         # Builds all dbt models
-│   ├── dbt_profiles/
-│   │   └── profiles.yml              # dbt config for the container (env-var driven)
-│   ├── config/
-│   ├── logs/
-│   └── plugins/
-│
-├── ingestion/
-│   └── nyc311_extractor.py           # Python Socrata API extractor
-│
-├── nyc311_dbt/                       # dbt project
-│   ├── models/
-│   │   ├── staging/                  # Flatten + clean source
-│   │   ├── intermediate/             # Business logic
-│   │   └── marts/
-│   │       ├── core/                 # dim, fct_ (contracts enforced)
-│   │       └── reporting/            # dashboard_daily_summary
-│   ├── seeds/                        # Reference CSVs (borough, complaint type)
-│   ├── snapshots/                    # SCD Type 2 history
-│   ├── macros/                       # Reusable Jinja (schema naming, etc.)
-│   ├── tests/                        # Custom data tests
-│   ├── analyses/                     # Ad-hoc analytical queries
-│   ├── dbt_project.yml
-│   └── packages.yml
-│
-├── docker-compose.yml                # Orchestrates Airflow + Postgres + Redis
-├── Dockerfile                        # Extends Airflow image with dbt
-├── .env                              # Secrets (gitignored)
-├── .gitignore
-└── README.md
