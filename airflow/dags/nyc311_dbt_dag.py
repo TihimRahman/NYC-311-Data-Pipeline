@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from textwrap import dedent
-
 from airflow.sdk import dag, task, task_group
+from assets import bronze_complaints
 
 
 DBT_PROJECT_DIR = "/opt/dbt"
@@ -23,7 +23,7 @@ def dbt_command(subcommand: str) -> str:
     tags=["nyc311", "dbt", "elt", "production"],
     start_date=datetime(2026, 1, 1),
     catchup=False,
-    schedule=None,
+    schedule=[bronze_complaints],
     max_active_runs=1,
     doc_md=__doc__,
     default_args={

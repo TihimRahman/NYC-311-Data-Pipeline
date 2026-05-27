@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from textwrap import dedent
 from airflow.sdk import dag, task
-
+from assets import bronze_complaints
 
 INGESTION_DIR = "/opt/ingestion"
 EXTRACTOR_SCRIPT = "nyc311_extractor.py"
@@ -32,6 +32,7 @@ def nyc311_extraction_pipeline():
 
     @task.bash(
         task_id="extract_complaints",
+        outlets=[bronze_complaints],
         doc_md=dedent("""
             Run the Python extractor:
               1. Hits the NYC 311 Socrata API
