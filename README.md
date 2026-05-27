@@ -83,7 +83,7 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/<your-username>/personal_pipeline.git
+git clone https://github.com/TihimRahman/personal_pipeline.git
 cd personal_pipeline
 ```
 
@@ -310,4 +310,4 @@ MIT
 
 Built with ❤️ as a demonstration of modern ELT practices: medallion architecture, dimensional modeling, incremental builds, SCD Type 2, event-driven orchestration, and full containerization.
 
-If you're hiring data engineers or want to chat about the project, find me on [LinkedIn](https://linkedin.com/in/<your-handle>) or [GitHub](https://github.com/<your-handle>).
+If you're hiring data engineers or want to chat about the project, find me on [LinkedIn](https://linkedin.com/in/tihimrahmanahmed) or [GitHub](https://github.com/TihimRahman).
