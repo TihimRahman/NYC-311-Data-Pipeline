@@ -37,7 +37,7 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 - **40+ data tests** — uniqueness, not-null, referential integrity, accepted values, custom expressions
 - **Cross-column invariants** — model-level tests asserting relationships between columns (e.g., `closed_at >= created_at`)
 - **Source freshness checks** — defensive monitoring of bronze data staleness
-- **Generic + singular tests** — both YAML-declared and SQL-file-defined
+- **Generic + singular tests** — both YAML-declared and SQL-file-defined with **JINJA** implementation
 
 ### 🪂 Orchestration
 - **Event-driven chaining** — extraction DAG produces an Airflow Asset; dbt DAG consumes it (no manual triggers, no polling)
