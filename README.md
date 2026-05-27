@@ -17,11 +17,6 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 **One click, full pipeline.** Trigger the extraction DAG in Airflow (set at automatated triggers at 5am UTC by default) and the entire chain runs unattended: API → S3 → Snowflake bronze → silver → gold star schema → reporting marts.
 
 ---
-![Alt text](images/full_lineage.png)
-![Alt text](images/dbt_dag.png)
-![Alt text](images/asset.png)
-
----
 ## ✨ Features
 
 ### 📊 Data Modeling
