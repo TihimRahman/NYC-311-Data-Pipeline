@@ -50,7 +50,8 @@ This project ingests **every NYC 311 service request** — noise complaints, pot
 - **Version-controlled reference data** — seed CSVs in git, editable via PRs
 - **Infrastructure as code** — `docker-compose.yml`, `Dockerfile`, and DAG files fully describe the runtime environment
 
-#FULL DBT LINEAGE#
+---
+###Full Dbt Lineage###
 ![Alt text](images/full_lineage.png)
 
 ---
