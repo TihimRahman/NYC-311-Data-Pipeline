@@ -1,0 +1,64 @@
+2026-05-27 09:23:59,871 - INFO - ============================================================
+2026-05-27 09:23:59,871 - INFO - NYC 311 Extraction Started
+2026-05-27 09:23:59,872 - INFO - Target records : 10000
+2026-05-27 09:23:59,872 - INFO - Batch size     : 1000
+2026-05-27 09:23:59,872 - INFO - S3 bucket      : ntc311-pipeline
+2026-05-27 09:23:59,872 - INFO - ============================================================
+2026-05-27 09:23:59,873 - INFO - [STARTING] Fetching batch... | offset = 0
+2026-05-27 09:24:00,667 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 0
+2026-05-27 09:24:00,669 - INFO - [QUALITY CHECK] offset=0 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:00,701 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2026-05-27 09:24:01,047 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch0_2026-05-27_09:24:00.json
+2026-05-27 09:24:01,048 - INFO - [PROGRESS] total_records=1000/10000
+2026-05-27 09:24:01,549 - INFO - [STARTING] Fetching batch... | offset = 1000
+2026-05-27 09:24:02,057 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 1000
+2026-05-27 09:24:02,060 - INFO - [QUALITY CHECK] offset=1000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:02,321 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch1000_2026-05-27_09:24:02.json
+2026-05-27 09:24:02,324 - INFO - [PROGRESS] total_records=2000/10000
+2026-05-27 09:24:02,824 - INFO - [STARTING] Fetching batch... | offset = 2000
+2026-05-27 09:24:03,255 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 2000
+2026-05-27 09:24:03,258 - INFO - [QUALITY CHECK] offset=2000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:03,490 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch2000_2026-05-27_09:24:03.json
+2026-05-27 09:24:03,492 - INFO - [PROGRESS] total_records=3000/10000
+2026-05-27 09:24:03,992 - INFO - [STARTING] Fetching batch... | offset = 3000
+2026-05-27 09:24:04,480 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 3000
+2026-05-27 09:24:04,483 - INFO - [QUALITY CHECK] offset=3000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:04,709 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch3000_2026-05-27_09:24:04.json
+2026-05-27 09:24:04,711 - INFO - [PROGRESS] total_records=4000/10000
+2026-05-27 09:24:05,195 - INFO - [STARTING] Fetching batch... | offset = 4000
+2026-05-27 09:24:05,876 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 4000
+2026-05-27 09:24:05,881 - INFO - [QUALITY CHECK] offset=4000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:06,174 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch4000_2026-05-27_09:24:05.json
+2026-05-27 09:24:06,179 - INFO - [PROGRESS] total_records=5000/10000
+2026-05-27 09:24:06,680 - INFO - [STARTING] Fetching batch... | offset = 5000
+2026-05-27 09:24:07,518 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 5000
+2026-05-27 09:24:07,522 - INFO - [QUALITY CHECK] offset=5000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:07,802 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch5000_2026-05-27_09:24:07.json
+2026-05-27 09:24:07,804 - INFO - [PROGRESS] total_records=6000/10000
+2026-05-27 09:24:08,304 - INFO - [STARTING] Fetching batch... | offset = 6000
+2026-05-27 09:24:08,719 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 6000
+2026-05-27 09:24:08,721 - INFO - [QUALITY CHECK] offset=6000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:08,972 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch6000_2026-05-27_09:24:08.json
+2026-05-27 09:24:08,974 - INFO - [PROGRESS] total_records=7000/10000
+2026-05-27 09:24:09,475 - INFO - [STARTING] Fetching batch... | offset = 7000
+2026-05-27 09:24:09,950 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 7000
+2026-05-27 09:24:09,955 - INFO - [QUALITY CHECK] offset=7000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:10,213 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch7000_2026-05-27_09:24:09.json
+2026-05-27 09:24:10,215 - INFO - [PROGRESS] total_records=8000/10000
+2026-05-27 09:24:10,716 - INFO - [STARTING] Fetching batch... | offset = 8000
+2026-05-27 09:24:11,310 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 8000
+2026-05-27 09:24:11,314 - INFO - [QUALITY CHECK] offset=8000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:11,616 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch8000_2026-05-27_09:24:11.json
+2026-05-27 09:24:11,617 - INFO - [PROGRESS] total_records=9000/10000
+2026-05-27 09:24:12,118 - INFO - [STARTING] Fetching batch... | offset = 9000
+2026-05-27 09:24:12,795 - INFO - [SUCCESS] Fetched 1000 records from batch in JSON | offset = 9000
+2026-05-27 09:24:12,800 - INFO - [QUALITY CHECK] offset=9000 | missing_key=0 | missing_date=0 | missing_borough=0 | duplicates=0 | empty_strings=0
+2026-05-27 09:24:13,068 - INFO - [S3 UPLOAD SUCCESS] s3://ntc311-pipeline/source/2026-05-27/batch9000_2026-05-27_09:24:12.json
+2026-05-27 09:24:13,071 - INFO - [PROGRESS] total_records=10000/10000
+2026-05-27 09:24:13,573 - INFO - ============================================================
+2026-05-27 09:24:13,574 - INFO - Extraction Complete
+2026-05-27 09:24:13,574 - INFO - Total records  : 10000
+2026-05-27 09:24:13,575 - INFO - Total files    : 10
+2026-05-27 09:24:13,575 - INFO - Duration       : 0:00:13.702204
+2026-05-27 09:24:13,575 - INFO - Quality issues : {'missing_unique_key': 0, 'missing_created_date': 0, 'missing_complaint_type': 0, 'missing_borough': 0, 'empty_strings': 0, 'duplicate_keys': 0}
+2026-05-27 09:24:13,575 - INFO - ============================================================
