@@ -29,3 +29,5 @@ ingestion/uv.lock
 ingestion/extraction_summary.json
 ingestion/README.md
 ingestion/logs
+
+logs/
